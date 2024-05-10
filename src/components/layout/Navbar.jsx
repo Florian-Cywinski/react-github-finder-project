@@ -2,7 +2,7 @@ import { FaGithub } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-function Navbar({ title }) {
+function Navbar({ title = 'Github Finder' }) {
     return (
       <nav className='navbar mb-12 shadow-lg bg-neutral text-neutral-content'>  {/* navbar is a class from daisyUI */}
         <div className='container mx-auto'> {/* To don't have the Navbar until the left / right end */}
@@ -23,9 +23,9 @@ function Navbar({ title }) {
     )
 }
 
-Navbar.defaultProps = {
-    title: 'Github Finder',
-  }
+// Navbar.defaultProps = {
+//     title: 'Github Finder',
+//   }
   
 Navbar.propTypes = {
 title: PropTypes.string,
