@@ -4,16 +4,17 @@ import GithubContext from '../../context/github/GithubContext'  // To bring in t
 function UserSearch() {
   const [text, setText] = useState('')
 
-  const { users } = useContext(GithubContext)
+  const { users, searchUsers } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx
 
   const handleChange = (e) => setText(e.target.value)   // To save the typed in text
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     if (text === '') {
       setAlert('Please enter something', 'error')
     } else {  // Search users
+      searchUsers(text)
 
       setText('')   // To set the state of text back to empty
     }
