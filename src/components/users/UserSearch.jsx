@@ -4,7 +4,7 @@ import GithubContext from '../../context/github/GithubContext'  // To bring in t
 function UserSearch() {
   const [text, setText] = useState('')
 
-  const { users, searchUsers } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx
+  const { users, searchUsers, clearUsers } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx
 
   const handleChange = (e) => setText(e.target.value)   // To save the typed in text
 
@@ -40,7 +40,7 @@ function UserSearch() {
       </div>
       {users.length > 0 && (  // if there is at least one user
         <div>
-          <button onClick={() => dispatch({ type: 'CLEAR_USERS' })} className='btn btn-ghost btn-lg'>Clear</button>
+          <button onClick={clearUsers} className='btn btn-ghost btn-lg'>Clear</button>
         </div>
       )}
     </div>

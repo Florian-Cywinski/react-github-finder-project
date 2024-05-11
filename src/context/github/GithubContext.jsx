@@ -39,8 +39,13 @@ export const GithubProvider = ({ children }) => {
   // Set Loading
   const setLoading = () => dispatch({type: 'SET_LOADING'})
 
+  // Clear Users
+  const clearUsers = () => dispatch({    // dispatch := Versenden  - to update the current (old) state (GithubReducer.jsx)
+    type: 'CLEAR_USERS',
+  })
+
   return (
-    <GithubContext.Provider value={{users: state.users, loading: state.loading, searchUsers}}>
+    <GithubContext.Provider value={{users: state.users, loading: state.loading, searchUsers, clearUsers}}>
         {children}
     </GithubContext.Provider>
   )
