@@ -9,7 +9,7 @@ const githubReducer = (state, action) => {  // state is the current (old) state 
     case 'CLEAR_USERS':
       return {
         ...state,   // To spread all of the current state apart
-        users: [],    // payload (in this case) are the fetched data - payload is the convention -> it could also be users in this case (GithubContext.jsx)
+        users: [],    // To set users to an empty array
       }  
     case 'SET_LOADING':
       return {
