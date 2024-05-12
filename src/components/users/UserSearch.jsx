@@ -6,7 +6,7 @@ function UserSearch() {
   const [text, setText] = useState('')
 
   const { users, searchUsers, clearUsers } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx
-  const { setAlert } = useContext(AlertContext)  // To bring in users and searchUsers from GithubContext.jsx
+  const { setAlert } = useContext(AlertContext)  // To bring in setAlert from AlertContext.jsx
 
   const handleChange = (e) => setText(e.target.value)   // To save the typed in text
 
@@ -14,7 +14,7 @@ function UserSearch() {
     e.preventDefault()
 
     if (text === '') {
-      setAlert('Please enter something', 'error')
+      setAlert('Please enter something', 'error')   // setAlert = (msg, type)
     } else {  // Search users
       searchUsers(text)
 
