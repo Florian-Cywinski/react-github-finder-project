@@ -3,14 +3,16 @@ import GithubContext from '../context/github/GithubContext'
 import { useParams, Link } from 'react-router-dom'
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
 import Spinner from '../components/layout/Spinner'
+import RepoList from '../components/repos/RepoList'
 
 function User() {
-  const { getUser, user, loading } = useContext(GithubContext)
+  const { getUser, user, loading, getUserRepos, repos } = useContext(GithubContext)
 
-  const params = useParams()
+  const params = useParams()  // The useParams hook allows us to access URL parameters within our components. It retrieves the value of the parameter specified in the route and makes it available for further use.
 
   useEffect(() => {
     getUser(params.login)
+    getUserRepos(params.login)
   }, [])
 
   const {
@@ -143,7 +145,7 @@ function User() {
           {/* </div> */}
         </div>
 
-        {/* <RepoList repos={repos} /> */}
+        <RepoList repos={repos} />  {/* {repos} are all repos in an array imported from GithubContext.jsx */}
       </div>
     </>
   )

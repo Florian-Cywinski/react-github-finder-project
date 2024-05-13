@@ -12,6 +12,12 @@ const githubReducer = (state, action) => {  // state is the current (old) state 
         user: action.payload,    // payload (in this case) are the fetched data - payload is the convention -> it could also be user in this case (GithubContext.jsx)
         loading: false,
       }
+    case 'GET_REPOS':
+      return {
+        ...state,   // To spread all of the current state apart
+        repos: action.payload,    // payload (in this case) are the fetched data - payload is the convention -> it could also be user in this case (GithubContext.jsx)
+        loading: false,
+      }
     case 'CLEAR_USERS':
       return {
         ...state,   // To spread all of the current state apart
