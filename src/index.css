@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-card-image .card.image-full:before {
+    /* To remove the corner issue of the profile avators */
+    border-radius: 0.5rem;
+    opacity: 0.45;
+}
