@@ -1,22 +1,25 @@
 import { useState, useContext } from 'react'  // useContext to have access to the users array to see it's empty or not (to show the clear button if there are users)
 import GithubContext from '../../context/github/GithubContext'  // To bring in the context file
 import AlertContext from '../../context/alert/AlertContext'
+import { searchUsers } from '../../context/github/GithubActions'  // {} because it's not a default export
 
 function UserSearch() {
   const [text, setText] = useState('')
 
-  const { users, searchUsers, clearUsers } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx
+  const { users, clearUsers, dispatch } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx (GithubContext.Provider)
   const { setAlert } = useContext(AlertContext)  // To bring in setAlert from AlertContext.jsx
 
   const handleChange = (e) => setText(e.target.value)   // To save the typed in text
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (text === '') {
       setAlert('Please enter something', 'error')   // setAlert = (msg, type)
     } else {  // Search users
-      searchUsers(text)
+      dispatch({type: 'SET_LOADING'})
+      const users = await searchUsers(text)
+      dispatch({type: 'GET_USERS', payload: users})
 
       setText('')   // To set the state of text back to empty
     }

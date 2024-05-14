@@ -16,27 +16,7 @@ export const GithubProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(githubReducer, initialState)   // [state, dispatch] is the output from the reducer   // dispatch := Versenden
 
-  // Get search results
-  const searchUsers = async (text) => {   // text is the typed in text
-    setLoading()
 
-    const params = new URLSearchParams({q: text})   // text is the typed in text
-
-    // const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-    //   headers: {
-    //     Authorization: `token ${GITHUB_TOKEN}`
-    //   }
-    // })
-    // Without using a Token
-    const response = await fetch(`${GITHUB_URL}/search/users?${params}`)  // params is the typed in text -> the search parameter in the url
-
-    const { items } = await response.json()   // items are the destructured data wanted
-
-    dispatch({    // dispatch := Versenden  - to update the current (old) state (GithubReducer.jsx)
-      type: 'GET_USERS',
-      payload: items      // items are the destructured data wanted
-    })
-  }
 
   // Get single user
   const getUser = async (login) => {   // login is the username
@@ -94,7 +74,8 @@ export const GithubProvider = ({ children }) => {
   })
 
   return (
-    <GithubContext.Provider value={{users: state.users, user: state.user, loading: state.loading, repos: state.repos, searchUsers, clearUsers, getUser, getUserRepos}}>
+    // <GithubContext.Provider value={{users: state.users, user: state.user, loading: state.loading, repos: state.repos, searchUsers, clearUsers, getUser, getUserRepos}}>
+    <GithubContext.Provider value={{...state, dispatch, clearUsers, getUser, getUserRepos}}>  {/* ...state to spread accross all the state values -> see the line above */}
         {children}
     </GithubContext.Provider>
   )
