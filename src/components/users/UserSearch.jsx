@@ -6,7 +6,7 @@ import { searchUsers } from '../../context/github/GithubActions'  // {} because 
 function UserSearch() {
   const [text, setText] = useState('')
 
-  const { users, clearUsers, dispatch } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx (GithubContext.Provider)
+  const { users, dispatch } = useContext(GithubContext)  // To bring in users and searchUsers from GithubContext.jsx (GithubContext.Provider)
   const { setAlert } = useContext(AlertContext)  // To bring in setAlert from AlertContext.jsx
 
   const handleChange = (e) => setText(e.target.value)   // To save the typed in text
@@ -45,7 +45,7 @@ function UserSearch() {
       </div>
       {users.length > 0 && (  // if there is at least one user
         <div>
-          <button onClick={clearUsers} className='btn btn-ghost btn-lg'>Clear</button>
+          <button onClick={() => dispatch({type: 'CLEAR_USERS'})} className='btn btn-ghost btn-lg'>Clear</button>
         </div>
       )}
     </div>

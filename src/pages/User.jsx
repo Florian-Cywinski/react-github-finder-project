@@ -4,16 +4,25 @@ import { useParams, Link } from 'react-router-dom'
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
 import Spinner from '../components/layout/Spinner'
 import RepoList from '../components/repos/RepoList'
+import { getUser, getUserRepos } from '../context/github/GithubActions'
 
 function User() {
-  const { getUser, user, loading, getUserRepos, repos } = useContext(GithubContext)
+  const { user, loading, repos, dispatch } = useContext(GithubContext)  // To get the state values
 
   const params = useParams()  // The useParams hook allows us to access URL parameters within our components. It retrieves the value of the parameter specified in the route and makes it available for further use.
 
   useEffect(() => {
-    getUser(params.login)
-    getUserRepos(params.login)
-  }, [])
+    dispatch({ type: 'SET_LOADING' })
+    const getUserData = async () => {
+      const userData = await getUser(params.login)        // getUser comes from GithubActions.jsx
+      dispatch({ type: 'GET_USER', payload: userData }) 
+
+      const userRepoData = await getUserRepos(params.login) // getUserRepos comes from GithubActions.jsx
+      dispatch({ type: 'GET_REPOS', payload: userRepoData })
+    }
+
+    getUserData()
+  }, [dispatch, params.login])  // The function is executed every time something changes (dispatch, params.login (username))
 
   const {
     name,
